@@ -20,19 +20,30 @@
             line-height: 1.5;
             border-radius: .25rem;
             transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-            margin-top: 20px; /* Добавлен отступ сверху */
+            margin-top: 20px;
         }
         .btn:hover {
             color: #ffffff;
             background-color: #9a9a9a;
             border-color: #bbb4b4;
         }
+        .container {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        .row {
+            margin: 0px;
+        }
+        .col-lg-4 {
+            padding: 0px;
+        }
     </style>
 </head>
 
 <section layout:fragment="body" th:object="${user}">
+   <div class="container">
+       <h2>Account Details</h2>
     <div class="account-details" style="font-family: Arial, sans-serif; color: #333; font-size: 1.2em;">
-        <h2>Account Details</h2>
         <p><strong>Username:</strong> <span th:text="*{username != null ? username : 'undefined'}"></span></p>
         <p><strong>Email:</strong> <span th:text="*{email != null ? email : 'undefined'}"></span></p>
         <p><strong>Phone Number:</strong> <span th:text="*{phoneNumber != null ? phoneNumber : 'undefined'}"></span></p>
@@ -44,22 +55,23 @@
 
     <h2 class="cupon-title" style="font-size: 2em; font-weight: bold;">Your Clubs</h2>
 
-    <div class="row">
-        <div th:each="club :${clubs}" class="col-lg-2">
-            <!-- Club post -->
-            <div class="card mb-1">
-                <div class="club-info">
-                    <a href="#!"><img class="club-photo" th:src="${club.photoUrl}" alt="Club Photo" style="max-width: 100%; height: auto;" /></a>
-                    <div class="club-details" style="font-family: Arial, sans-serif; color: #333;">
-                        <p class="club-text" th:text="'Tittle: ' + ${club.title}" style="font-size: 2em; line-height: 1;margin-top: 2px"></p>
-                    </div>
-                    <a class="btn btn-primary" th:href="@{/clubs/{clubId}(clubId=${club.id})}">View</a>
-                </div>
-            </div>
-        </div>
-    </div>
+       <div class="row">
+           <div th:each="club :${clubs}" class="col-lg-4">
+               <!-- Club post -->
+               <div class="card mb-1" style="width: 300px; margin-bottom: 0;"> <!-- Установите желаемую ширину и отсутствие отступа здесь -->
+                   <div class="club-info">
+                       <a href="#!"><img class="club-photo" th:src="${club.photoUrl}" alt="Club Photo" style="max-width: 100%; height: auto; margin-left: 0px" /></a>
+                       <div class="club-details" style="font-family: Arial, sans-serif; color: #333;">
+                           <p class="club-text" th:text="'Tittle: ' + ${club.title}" style="font-size: 2em; line-height: 1;margin-top: 2px"></p>
+                       </div>
+                       <a class="btn btn-primary" th:href="@{/clubs/{clubId}(clubId=${club.id})}">View</a>
+                   </div>
+               </div>
+           </div>
+       </div>
 
 
+   </div>
 
 
 
