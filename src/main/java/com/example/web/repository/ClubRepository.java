@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ClubRepository extends  JpaRepository<Club,Long> {
         @Query("Select c from Club c WHERE c.title LIKE CONCAT('%', :query ,'%')")
-        List<Club> searchClub(String query);
+        List<Club> searchClub(String query);;
 
+        List<Club> findAllByCreatedBy_Id(Long userId);
 }
