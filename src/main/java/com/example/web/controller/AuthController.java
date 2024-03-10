@@ -2,6 +2,7 @@ package com.example.web.controller;
 
 import com.example.web.dto.ClubDto;
 import com.example.web.dto.security.RegistrationDto;
+import com.example.web.models.Club;
 import com.example.web.models.security.UserEntity;
 import com.example.web.security.SecurityUtil;
 import com.example.web.service.security.UserService;
@@ -12,7 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class AuthController { // for Security
@@ -66,11 +70,15 @@ public class AuthController { // for Security
 
     //Portfolio
     @GetMapping("/cabinet")
-    public String accountPage( Model model)
+    public String accountPage(Model model)
     {
         String username = SecurityUtil.getSessionUser();
+
+        List<Club> clubs =userService.findClubsByUser(username);
+
         UserEntity userEntity = userService.findByUsername(username);
         model.addAttribute("user",userEntity);
+        model.addAttribute("clubs",clubs);
         return "portfolioPage";
     }
 
