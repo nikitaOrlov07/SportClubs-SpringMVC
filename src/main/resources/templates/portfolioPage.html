@@ -5,16 +5,65 @@
         layout:decorate="~{layout}">
 <head>
     <title>Account</title>
+    <style>
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            color: #212529;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            background-color: #818b9a;
+            border: 1px solid transparent;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            margin-top: 20px; /* Добавлен отступ сверху */
+        }
+        .btn:hover {
+            color: #ffffff;
+            background-color: #9a9a9a;
+            border-color: #bbb4b4;
+        }
+    </style>
 </head>
 
 <section layout:fragment="body" th:object="${user}">
-<div class="account-details">
-    <h2>Детали аккаунта</h2>
-    <p><strong>Имя пользователя:</strong> <span th:text="*{username}"></span></p>
-    <p><strong>Email:</strong> <span th:text="*{email}"></span></p>
-    <p><strong>Номер телефона:</strong> <span th:text="*{phoneNumber}"></span></p>
-    <p><strong>Город:</strong> <span th:text="*{town}"></span></p>
-</div>
+    <div class="account-details" style="font-family: Arial, sans-serif; color: #333; font-size: 1.2em;">
+        <h2>Account Details</h2>
+        <p><strong>Username:</strong> <span th:text="*{username != null ? username : 'undefined'}"></span></p>
+        <p><strong>Email:</strong> <span th:text="*{email != null ? email : 'undefined'}"></span></p>
+        <p><strong>Phone Number:</strong> <span th:text="*{phoneNumber != null ? phoneNumber : 'undefined'}"></span></p>
+        <p><strong>City:</strong> <span th:text="*{town != null ? town : 'undefined'}"></span></p>
+    </div>
+
+
+    <hr style="border: 2px solid #ccc; border-color: #032738">
+
+    <h2 class="cupon-title" style="font-size: 2em; font-weight: bold;">Your Clubs</h2>
+
+    <div class="row">
+        <div th:each="club :${clubs}" class="col-lg-2">
+            <!-- Club post -->
+            <div class="card mb-1">
+                <div class="club-info">
+                    <a href="#!"><img class="club-photo" th:src="${club.photoUrl}" alt="Club Photo" style="max-width: 100%; height: auto;" /></a>
+                    <div class="club-details" style="font-family: Arial, sans-serif; color: #333;">
+                        <p class="club-text" th:text="'Tittle: ' + ${club.title}" style="font-size: 2em; line-height: 1;margin-top: 2px"></p>
+                    </div>
+                    <a class="btn btn-primary" th:href="@{/clubs/{clubId}(clubId=${club.id})}">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
 </section>
+
+
 </html>
