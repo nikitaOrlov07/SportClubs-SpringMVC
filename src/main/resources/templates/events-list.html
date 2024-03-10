@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Event List</title>
+    <style>
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            color: #212529;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            background-color: #818b9a;
+            border: 1px solid transparent;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            margin-top: 20px; /* Добавлен отступ сверху */
+        }
+        .btn:hover {
+            color: #ffffff;
+            background-color: #9a9a9a;
+            border-color: #bbb4b4;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <!-- Page Content-->
+    <section layout:fragment="body" class="py-5">
+        <div class="container px-5 my-5">
+            <div class="text-center mb-5">
+                <h1 class="fw-bolder">List of club events</h1>
+            </div>
+            <div class="row gx-5">
+                <div th:each="event : ${events}" class="col-lg-6 mи-2">
+                    <div class="position-relative mb-3">
+                        <!-- Изображение -->
+                        <img class="img-fluid rounded-3 mb-3" th:src="${event.photoUrl}" alt="..." />
+                        <!-- Текст -->
+                        <div>
+                            <a th:text="${event.name}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!">Project name</a>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary" th:href="@{/events/{eventId} (eventId=${event.id})}">View</a>
+
+                    <span th:if="${user.id} == ${event.club.created_by.id}">
+                        <a class="btn btn-primary" th:href="@{/events/{eventId}/edit (eventId=${event.id})}">Edit</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

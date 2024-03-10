@@ -1,0 +1,109 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:margin-right="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}"
+>
+<body class="d-flex flex-column">
+
+<head>
+    <title>Club Detail</title>
+    <style>
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            color: #212529;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            background-color: #818b9a;
+            border: 1px solid transparent;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            margin-top: 20px; /* Добавлен отступ сверху */
+        }
+        .btn:hover {
+            color: #ffffff;
+            background-color: #9a9a9a;
+            border-color: #bbb4b4;
+        }
+    </style>
+</head>
+
+<section layout:fragment="body" >
+    <!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <div class="text-center my-5">
+                <h1 class="fw-bolder" th:text ="${event.name}"></h1>
+                <p class="lead mb-0">Charlotte, NC</p>
+            </div>
+        </div>
+    </header>
+    <!-- Page content-->
+    <div class="container">
+        <div class="row">
+            <!-- Blog entries-->
+            <div class="col-lg-8">
+                <!-- Featured blog post-->
+                <div class="card mb-4">
+                    <a href="#!"><img class="card-img-top" th:src="${event.photoUrl}" alt="..." /></a>
+                    <div class="card-body">
+                        <div style="position: absolute; bottom: 0; right: 0;">
+                            <div class="small text-muted">Created on <span th:text="${event.createdOn}"></span></div>
+                            <div class="small text-muted">Updated on <span th:text="${event.updatedOn}"></span></div>
+                        </div>
+                        <h2 class="card-title">About this running event</h2>
+                        <p class="card-text" th:text="${event.type}"></p>
+                        <div class="text-lg text-muted" style="margin-bottom: 10px;" th:text="'Starting on: ' + ${event.startTime}"></div>
+                        <div class="text-lg text-muted" style="margin-bottom: 10px;" th:text="'Ending on:   ' + ${event.endTime}"></div>
+                        <div class="text-lg text-muted" style="margin-bottom: 10px;" th:text="'Club:   ' + ${club.getTitle()}"></div>
+
+                        <div th:if ="${user.id} == ${club.created_by.id}">
+                           <a class="btn btn-primary" th:href="@{/events/{eventId}/delete(eventId=${event.id})}">Delete</a>
+                           <a class="btn btn-primary" th:href="@{/events/{eventId}/edit(eventId=${event.id})}">Edit</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Side widgets-->
+            <div class="col-lg-4">
+                <!-- Search widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Search</div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                            <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Categories widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Categories</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#!">Road Runner</a></li>
+                                    <li><a href="#!">Trail</a></li>
+                                    <li><a href="#!">Marathon</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Side widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Side Widget</div>
+                    <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

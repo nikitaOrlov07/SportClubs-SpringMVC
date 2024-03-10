@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+<head>
+    <title>Account</title>
+</head>
+
+<section layout:fragment="body" th:object="${user}">
+<div class="account-details">
+    <h2>Детали аккаунта</h2>
+    <p><strong>Имя пользователя:</strong> <span th:text="*{username}"></span></p>
+    <p><strong>Email:</strong> <span th:text="*{email}"></span></p>
+    <p><strong>Номер телефона:</strong> <span th:text="*{phoneNumber}"></span></p>
+    <p><strong>Город:</strong> <span th:text="*{town}"></span></p>
+</div>
+
+</section>
+</html>
