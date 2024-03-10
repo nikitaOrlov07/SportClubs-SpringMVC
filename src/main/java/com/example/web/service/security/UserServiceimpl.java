@@ -1,8 +1,10 @@
 package com.example.web.service.security;
 
 import com.example.web.dto.security.RegistrationDto;
+import com.example.web.models.Club;
 import com.example.web.models.security.RoleEntity;
 import com.example.web.models.security.UserEntity;
+import com.example.web.repository.ClubRepository;
 import com.example.web.repository.security.RoleRepository;
 import com.example.web.repository.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +12,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class UserServiceimpl implements UserService{
     private UserRepository userRepository; private RoleRepository roleRepository;  // implements methods from repositories
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder; private ClubRepository clubRepository;
 
     @Autowired
-    public UserServiceimpl(UserRepository userRepository, RoleRepository roleRepository,PasswordEncoder passwordEncoder) {
+    public UserServiceimpl(UserRepository userRepository, RoleRepository roleRepository,PasswordEncoder passwordEncoder, ClubRepository clubRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.clubRepository = clubRepository;
     } // Technically we don`t need a constructor , but it is good practice
 
     @Override
@@ -45,6 +49,12 @@ public class UserServiceimpl implements UserService{
     @Override
     public UserEntity findByUsername(String username) {
        return  userRepository.findByUsername(username);
+    }
+
+    @Override
+    public List<Club> findClubsByUser(String  username) {
+        UserEntity userEntity = userRepository.findByUsername(username);
+        return clubRepository.findAllByCreatedBy_Id(userEntity.getId());
     }
 
 
