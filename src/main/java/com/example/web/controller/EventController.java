@@ -65,6 +65,7 @@ public class EventController {
             user= userService.findByUsername(username);
             model.addAttribute("user",user);
         }
+
         model.addAttribute("user",user);// if user entity will be null (пользователь не авторизован или не существует в системе.)
         model.addAttribute("events", eventsDto);
     return "events-list";

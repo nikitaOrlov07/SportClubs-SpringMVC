@@ -4,6 +4,7 @@ import com.example.web.dto.*;
 import com.example.web.models.Club;
 import com.example.web.models.Comment;
 import com.example.web.models.Coupon;
+import com.example.web.models.security.RoleEntity;
 import com.example.web.models.security.UserEntity;
 import com.example.web.security.SecurityUtil;
 import com.example.web.service.ClubService;
@@ -52,6 +53,7 @@ private ClubService clubService; private UserService userService; private Commen
     public String clubDetail(@PathVariable("clubId") long clubId, Model model)
     {
         UserEntity user = new UserEntity();
+        RoleEntity role = new RoleEntity();
         List<Comment> comments = commentService.getComments(clubId);
         List<Coupon> coupons = couponService.getCoupons(clubId);
         ClubDto clubDto = clubService.findClubById(clubId);
@@ -65,6 +67,7 @@ private ClubService clubService; private UserService userService; private Commen
         model.addAttribute("club",clubDto);      // доставить данные на страницу
         model.addAttribute("comments",comments); // get comments to page
         model.addAttribute("coupons",coupons);   // get coupons to page
+        model.addAttribute("role",role);
 
         return "clubs-detail";
         // отображения подробной информации о клубе на основе его идентификатора (clubId)

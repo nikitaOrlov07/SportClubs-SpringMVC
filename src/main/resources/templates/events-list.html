@@ -48,7 +48,7 @@
                     </div>
                     <a class="btn btn-primary" th:href="@{/events/{eventId} (eventId=${event.id})}">View</a>
 
-                    <span th:if="${user.id} == ${event.club.created_by.id}">
+                    <span th:if="${user.hasAdminRole(user.roles) or user.id == club.createdBy.id}">
                         <a class="btn btn-primary" th:href="@{/events/{eventId}/edit (eventId=${event.id})}">Edit</a>
                     </span>
                 </div>

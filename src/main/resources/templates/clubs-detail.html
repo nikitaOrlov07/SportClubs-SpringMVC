@@ -37,12 +37,7 @@
     <section layout:fragment="body" >
         <!-- Page header with logo and tagline-->
         <header class="py-5 bg-light border-bottom mb-4">
-            <div class="container">
-                <div class="text-center my-5">
-                    <h1 class="fw-bolder" th:text ="${club.title}"></h1>
-                    <p class="lead mb-0">Charlotte, NC</p>
-                </div>
-            </div>
+
         </header>
         <div class="container">
             <div class="row">
@@ -52,20 +47,27 @@
                     <div class="club-info">
                         <a href="#!"><img class="club-photo" th:src="${club.photoUrl}" alt="Club Photo" /></a>
                         <div class="club-details" style="font-family: Arial, sans-serif; color: #333;">
-                            <h2 class="club-title" style="font-size: 2em; font-weight: bold;">About this running club</h2>
-                            <p class="club-text" th:text="${club.content}" style="font-size: 1.2em; line-height: 1.5;"></p>
-                            <p class="club-price" th:text="${club.city != null ? 'City: ' + club.city : 'City: undefined'}" style="font-size: 1.2em; line-height: 1.5;"></p>
-                            <div th:if="${user.id} == ${club.createdBy.id}">
-                                <a class="btn btn-primary" th:href="@{/clubs/{clubId}/delete(clubId = ${club.id})}">Delete Club</a>
+                            <h2 class="club-title" style="font-size: 2em; font-weight: bold;">Information:</h2>
+                            <p class="club-text" th:text="'Club tittle: '+${club.title}" style="font-size: 1.2em; line-height: 1.5;"></p>
+                            <p class="club-text" th:text="'About this club: '+${club.content}" style="font-size: 1.2em; line-height: 1.5;"></p>
+                            <p class="club-city" th:text="${club.city != null ? 'City: ' + club.city : 'City: undefined'}" style="font-size: 1.2em; line-height: 1.5;"></p>
+                            <span th:if="${user.hasAdminRole(user.roles) or user.id == club.createdBy.id}">
+                            <p class="club-owner" th:text="${club.city != null ? 'Owner: ' + club.createdBy.username : 'City: undefined'}" style="font-size: 1.2em; line-height: 1.5;"></p>
+                            </span>
+
+                            <div th:if="${user.hasAdminRole(user.roles) or user.id == club.createdBy.id}" style="margin-bottom: 6px">
                                 <a class="btn btn-primary" th:href="@{/events/{clubId}/new(clubId = ${club.id})}">Create Event</a>
                                 <a class="btn btn-primary" th:href="@{/clubs/{clubId}/coupon/create(clubId = ${club.id})}">Create Coupon</a>
+                                <a class="btn btn-primary" th:href="@{/clubs/{clubId}/delete(clubId = ${club.id})}">Delete Club</a>
                             </div>
+
                         </div>
                     </div>
                 </div>
-                <!-- Side widgets-->
+                <!--
+
                 <div class="col-lg-4" style="position: static; right: 20px; top: 100px;">
-                    <!-- Search widget-->
+
                     <div class="club mb-4">
                         <div class="card-header">Search</div>
                         <div class="card-body">
@@ -77,7 +79,7 @@
                     </div>
                 </div>
             </div>
-
+             -->
             <hr style="border: 2px solid #ccc; border-color: #032738">
 
             <h2 class="cupon-title" style="font-size: 2em; font-weight: bold;">Coupons</h2>
@@ -87,9 +89,10 @@
                     <h3 class="cupon-tittle" th:text="${cupon.type}" style="font-size: 1.5em; font-weight: bold;"></h3>
                     <p class="cupon-startTime" th:text="${cupon.startTime != null ? 'Start time: ' + cupon.startTime : 'Start time: undefined'}" style="font-size: 1.2em; line-height: 1.5;"></p>
                     <p class="cupon-endTime" th:text="${cupon.endTime != null ? 'End time: ' + cupon.endTime : 'End time: undefined'}" style="font-size: 1.2em; line-height: 1.5;"></p>
-                    <div th:if="${user.id} == ${club.createdBy.id}">
-                          <a class="btn btn-primary" th:href="@{/coupons/{cuponId}/delete(cuponId = ${cupon.id})}" style ="margin-top: 16px" >Delete Cupon</a>
+                    <div th:if="${user.roleId == 1 or user.id == club.createdBy.id}" >
+                        <a class="btn btn-primary" th:href="@{/coupons/{cuponId}/delete(cuponId = ${cupon.id})}" style="margin-top: 16px">Delete Coupon</a>
                     </div>
+
                 </div>
             </div>
 

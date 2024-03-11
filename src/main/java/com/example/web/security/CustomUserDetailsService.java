@@ -34,7 +34,7 @@ public CustomUserDetailsService(UserRepository userRepository) {
                     userEntity.getPassword(),
                     userEntity.getRoles().stream().map((role) -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList())
 
-            );//класс User взят из Spring-Security (мы не делали этот класс)
+            );
             return authUser;
         }
         else {

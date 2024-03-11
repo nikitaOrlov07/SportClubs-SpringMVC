@@ -20,4 +20,6 @@ public class RoleEntity {
 
     @ManyToMany(mappedBy = "roles")
     private List<UserEntity> users = new ArrayList<>();
+
+
 }

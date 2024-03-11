@@ -38,7 +38,7 @@ public class Club {
     //For security
     @ManyToOne // many clubs to one user
     @JoinColumn(name = "created_by" , nullable = false) // поле created_by будет использоваться для соединения между сущностями ClubEntity и UserEntity
-    private UserEntity created_by;
+    private UserEntity createdBy;
 
     //create one-to-many relationship one club - many relationships
     @OneToMany(mappedBy="club",cascade =  CascadeType.REMOVE)
