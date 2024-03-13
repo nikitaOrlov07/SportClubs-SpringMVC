@@ -1,63 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www/thymeleaf.org"
+
+>
+
 <head>
+    <link th:href="@{/css/styles.css}" rel="stylesheet"}>
     <style>
-        body {
-            background: #5d5d5d;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            font-size: 5em;
+
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            color: #212529;
             text-align: center;
-            color: white;
-            background-image: linear-gradient(45deg, #000d3a, #e1e1e1, #032738, #fffbfb, blue, indigo, black);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 50px;
+            vertical-align: middle;
+            cursor: pointer;
+            background-color: #818b9a;
+            border: 1px solid transparent;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            margin-top: 20px; /* Добавлен отступ сверху */
         }
-        nav {
-            background: #333;
-            width: 100%;
-            padding: 20px 0;
-            position: fixed;
-            top: 0;
-            z-index: 1;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        nav ul {
-            display: flex;
-            justify-content: space-around;
-            list-style-type: none;
-        }
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.2em;
-            transition: color 0.3s ease;
-        }
-        nav ul li a:hover {
-            color: #f4f4f4;
+        .btn:hover {
+            color: #ffffff;
+            background-color: #9a9a9a;
+            border-color: #bbb4b4;
         }
     </style>
 </head>
-<body>
+<body id="page-top">
 
-<nav>
-    <ul>
-        <li><a th:href="@{/login}">Login</a></li>
-        <li><a th:href="@{/register}">Register</a></li>
-        <li><a th:href="@{/clubs}">All Clubs</a></li>
-        <li><a th:href="@{/events}">All Events</a></li>
-    </ul>
-</nav>
+<!-- Your content including the image -->
+<div layout:fragment="body">
+    <!--Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/register}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/clubs}">All Clubs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/events}">All Events</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-<h1>Sports clubs : your way to health</h1>
+
+    <!-- Masthead-->
+    <header class="masthead">
+        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+            <div class="d-flex justify-content-center">
+                <div class="text-center">
+
+                    <h1>Sports clubs : your way to health</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About-->
+    <section class="about-section text-center" id="about">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="text-white mb-4">Built with Bootstrap 5</h2>
+                    <p class="text-white-50">
+                        Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
+                        <a href="https://startbootstrap.com/theme/grayscale/">the preview page.</a>
+                        The theme is open source, and you can use it for any purpose, personal or commercial.
+                    </p>
+                </div>
+            </div>
+            <img class="img-fluid" src="assets/img/ipad.png" alt="..." />
+        </div>
+    </section>
+</div>
 
 </body>
 </html>

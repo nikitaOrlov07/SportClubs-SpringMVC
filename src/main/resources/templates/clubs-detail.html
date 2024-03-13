@@ -4,6 +4,30 @@
 >
 <head>
     <title>Club Detail</title>
+    <style>
+
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            color: #212529;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            background-color: #818b9a;
+            border: 1px solid transparent;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            margin-top: 20px; /* Добавлен отступ сверху */
+        }
+        .btn:hover {
+            color: #ffffff;
+            background-color: #9a9a9a;
+            border-color: #bbb4b4;
+        }
+    </style>
 </head>
 <body class="d-flex flex-column">
     <section layout:fragment="body" >
@@ -96,9 +120,9 @@
                 <h2 class="club-title" style="font-size: 2em; font-weight: bold;">Comments</h2>
                 <!-- Форма для добавления комментария -->
                 <form th:action="@{/comments/{clubId}/save(clubId=${club.id})}" method="post">
-                    <textarea name="text" placeholder="Напишите ваш комментарий здесь..." required rows="7" cols="70" style="resize: none;"></textarea>
+                    <textarea name="text" placeholder="Напишите ваш комментарий здесь..." required rows="7" cols="80" style="resize: none;"></textarea>
                     <input type="hidden" th:value="${club.id}" name="club" />
-                    <button type="submit" class="btn btn-secondary"style=" margin-bottom: 30px;">Отправить</button>
+                    <button type="submit" class="btn btn-secondary"style=" margin-bottom: 50px;">Send</button>
                 </form>
                 <div th:each="comment : ${comments}">
                     <div class="comment" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
