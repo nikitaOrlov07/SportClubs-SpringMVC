@@ -44,12 +44,14 @@
 
         <div class="form-group mb-3">
           <label for="startTime">Start Time</label>
-          <input type="datetime-local" class="form-control" id="startTime" name="startTime" th:field="*{startTime}" placeholder="Start Time">
+          <input type="date" class="form-control" id="startTime" name="startTime" th:field="*{startTime}" placeholder="Start Time">
+          <p th:if="${#fields.hasErrors('startTime')}" class="text-danger" th:errors="*{startTime}"></p>
         </div>
 
         <div class="form-group mb-3">
           <label for="endTime">End Time</label>
-          <input type="datetime-local" class="form-control" id="endTime" name="endTime" th:field="*{endTime}" placeholder="End Time">
+          <input type="date" class="form-control" id="endTime" name="endTime" th:field="*{endTime}" placeholder="End Time">
+          <p th:if="${#fields.hasErrors('endTime')}" class="text-danger" th:errors="*{endTime}"></p>
         </div>
           <div class="form-group col-md-6">
             <label for="PriceForMonth">Price for Month </label>

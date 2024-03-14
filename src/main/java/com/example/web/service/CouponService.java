@@ -8,4 +8,5 @@ public interface CouponService {
     void createCoupon(Long clubId, Coupon coupon);
 
     void deleteCoupon(Long couponId);
+    List<Coupon> getAllCoupons();
 }

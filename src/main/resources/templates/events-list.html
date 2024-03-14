@@ -5,7 +5,6 @@
 <head>
     <title>Event List</title>
     <style>
-
         .btn {
             display: inline-block;
             font-weight: 400;
@@ -20,15 +19,29 @@
             line-height: 1.5;
             border-radius: .25rem;
             transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-            margin-top: 20px; /* Добавлен отступ сверху */
+            margin-top: 20px;
         }
         .btn:hover {
             color: #ffffff;
             background-color: #9a9a9a;
             border-color: #bbb4b4;
         }
+        .cupon-card {
+            border: 10px solid #ccc;
+            border-color: #032738;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            width: 300px;
+            height: 270px;
+            margin-right: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+        .cupon-card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
     </style>
-
 </head>
 <body class="d-flex flex-column h-100">
 <main class="flex-shrink-0">
@@ -36,8 +49,30 @@
     <section layout:fragment="body" class="py-5">
         <div class="container px-5 my-5">
             <div class="text-center mb-5">
-                <h1 class="fw-bolder">List of club events</h1>
+                <hr style="border: 2px solid #ccc; border-color: #032738">
+                <h1 class="fw-bolder">List of club coupons</h1>
+                <hr style="border: 2px solid #ccc; border-color: #032738">
             </div>
+            <div class="row gx-5">
+                <div th:each="coupon : ${coupons}" class="col-lg-6 mи-2">
+                    <div class="club-cupons" style="display: flex; flex-wrap: wrap;">
+                        <div th:each="coupon : ${coupons}" class="cupon-card">
+                            <h3 class="cupon-tittle" th:text="${coupon.type}" style="font-size: 1.5em; font-weight: bold;"></h3>
+                            <p class="cupon-startTime" th:text="${coupon.startTime != null ? 'Start time: ' + coupon.startTime : 'Start time: undefined'}" style="font-size: 1.2em; line-height: 1.5;"></p>
+                            <p class="cupon-endTime" th:text="${coupon.endTime != null ? 'End time: ' + coupon.endTime : 'End time: undefined'}" style="font-size: 1.2em; line-height: 1.5;"></p>
+                            <p class="cupon-endTime" th:text="'Club : ' + ${coupon.club.title}" style="font-size: 1.2em; line-height: 1.5;"></p>
+                            <a class="btn btn-primary" th:href="@{/clubs/{clubsId}(clubsId=${coupon.club.id})}">Club</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mb-5">
+                <hr style="border: 2px solid #ccc; border-color: #032738">
+                <h1 class="fw-bolder">List of club events</h1>
+                <hr style="border: 2px solid #ccc; border-color: #032738">
+            </div>
+
             <div class="row gx-5">
                 <div th:each="event : ${events}" class="col-lg-6 mи-2">
                     <div class="position-relative mb-3">
@@ -45,14 +80,10 @@
                         <img class="img-fluid rounded-3 mb-3" th:src="${event.photoUrl}" alt="..." />
                         <!-- Текст -->
                         <div>
-                            <a th:text="${event.name}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!">Project name</a>
+                            <a th:text="${event.name}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"></a>
                         </div>
                     </div>
-                    <a class="btn btn-primary" th:href="@{/events/{eventId} (eventId=${event.id})}">View</a>
-
-                    <span th:if="${user.hasAdminRole(user.roles) or user.id == club.createdBy.id}">
-                        <a class="btn btn-primary" th:href="@{/events/{eventId}/edit (eventId=${event.id})}">Edit</a>
-                    </span>
+                    <a class="btn btn-primary" th:href="@{/events/{eventId}(eventId=${event.id})}">View</a>
                 </div>
             </div>
         </div>

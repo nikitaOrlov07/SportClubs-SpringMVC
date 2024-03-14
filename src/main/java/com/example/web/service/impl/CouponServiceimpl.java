@@ -8,6 +8,8 @@ import com.example.web.service.CouponRepository;
 import com.example.web.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import java.util.List;
 
@@ -39,5 +41,11 @@ public class CouponServiceimpl implements CouponService {
     public void deleteCoupon(Long couponId) {
         couponRepository.deleteById(couponId);
     }
+
+    @Override
+    public List<Coupon> getAllCoupons() {
+        return couponRepository.findAll();
+    }
+
 
 }

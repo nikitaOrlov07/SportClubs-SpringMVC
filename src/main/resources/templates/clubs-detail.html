@@ -47,11 +47,11 @@
                             <p class="club-text" th:text="'Club tittle: '+${club.title}" style="font-size: 1.2em; line-height: 1.5;"></p>
                             <p class="club-text" th:text="'About this club: '+${club.content}" style="font-size: 1.2em; line-height: 1.5;"></p>
                             <p class="club-city" th:text="${club.city != null ? 'City: ' + club.city : 'City: undefined'}" style="font-size: 1.2em; line-height: 1.5;"></p>
-                            <span th:if="${user.hasAdminRole(user.roles) or user.id == club.createdBy.id}">
+                            <span th:if="${user.hasAdminRole(user.roles)}">
                             <p class="club-owner" th:text="${club.city != null ? 'Owner: ' + club.createdBy.username : 'City: undefined'}" style="font-size: 1.2em; line-height: 1.5;"></p>
                             </span>
 
-                            <div th:if="${user.hasAdminRole(user.roles) or user.id == club.createdBy.id}" style="margin-bottom: 6px">
+                            <div th:if="${user.hasAdminRole(user.roles) or user.id == club.createdBy.id}" style="margin-bottom: 15px">
                                 <a class="btn btn-primary" th:href="@{/events/{clubId}/new(clubId = ${club.id})}">Create Event</a>
                                 <a class="btn btn-primary" th:href="@{/clubs/{clubId}/coupon/create(clubId = ${club.id})}">Create Coupon</a>
                                 <a class="btn btn-primary" th:href="@{/clubs/{clubId}/delete(clubId = ${club.id})}">Delete Club</a>
@@ -80,20 +80,22 @@
 
             <h2 class="cupon-title" style="font-size: 2em; font-weight: bold;">Coupons</h2>
 
-            <div class="club-cupons" style="display: flex; flex-wrap: wrap;">
-                <div th:each="cupon : ${coupons}" class="cupon-card" style="border: 10px solid #ccc; border-color: #032738; padding: 10px; margin-bottom: 10px; border-radius: 10px; width: 300px; height: 270px; margin-right: 10px;">
-                    <h3 class="cupon-tittle" th:text="${cupon.type}" style="font-size: 1.5em; font-weight: bold;"></h3>
-                    <p class="cupon-startTime" th:text="${cupon.startTime != null ? 'Start time: ' + cupon.startTime : 'Start time: undefined'}" style="font-size: 1.2em; line-height: 1.5;"></p>
-                    <p class="cupon-endTime" th:text="${cupon.endTime != null ? 'End time: ' + cupon.endTime : 'End time: undefined'}" style="font-size: 1.2em; line-height: 1.5;"></p>
-                    <div th:if="${user.roleId == 1 or user.id == club.createdBy.id}" >
-                        <a class="btn btn-primary" th:href="@{/coupons/{cuponId}/delete(cuponId = ${cupon.id})}" style="margin-top: 16px">Delete Coupon</a>
+                <div class="club-cupons" style="display: flex; flex-wrap: wrap;">
+                    <div th:each="cupon : ${coupons}" class="cupon-card" style="border: 10px solid #ccc; border-color: #032738; padding: 10px; margin-bottom: 10px; border-radius: 10px; width: 300px; height: 270px; margin-right: 10px;">
+                        <h3 class="cupon-tittle" th:text="${cupon.type}" style="font-size: 1.5em; font-weight: bold;"></h3>
+                        <div>
+                            <p class="cupon-startTime" th:text="${cupon.startTime != null ? 'Start : ' + cupon.startTime : 'Start time: undefined'}" style="font-size: 1.2em; line-height: 1.5; margin-top: 25px;"></p>
+                            <p class="cupon-endTime" th:text="${cupon.endTime != null ? 'End : ' + cupon.endTime : 'End time: undefined'}" style="font-size: 1.2em; line-height: 1.5; margin-top: 5px;"></p>
+                        </div>
+                        <div th:if="${user.roleId == 1 or user.id == club.createdBy.id}" >
+                            <a class="btn btn-primary" th:href="@{/coupons/{cuponId}/delete(cuponId = ${cupon.id})}" style="margin-top: 40px;">Delete Coupon</a>
+                        </div>
                     </div>
-
                 </div>
-            </div>
 
 
-            <hr style="border: 2px solid #ccc; border-color: #032738">
+
+                <hr style="border: 2px solid #ccc; border-color: #032738">
 
             <h2 class="cupon-title" style="font-size: 2em; font-weight: bold;">Events</h2>
 
