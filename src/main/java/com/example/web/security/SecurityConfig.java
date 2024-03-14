@@ -25,7 +25,7 @@ public class SecurityConfig {
              .authorizeRequests(authorize -> authorize
                      .requestMatchers(new AntPathRequestMatcher("/clubs")).permitAll()
                      .requestMatchers(new AntPathRequestMatcher("/clubs/{clubId}")).permitAll()
-                     .requestMatchers(new AntPathRequestMatcher("/events")).permitAll()
+                     .requestMatchers(new AntPathRequestMatcher("/events-coupons")).permitAll()
                      .requestMatchers(new AntPathRequestMatcher("/home")).permitAll()
                      .requestMatchers(new AntPathRequestMatcher("/comments")).permitAll()
                      .requestMatchers(new AntPathRequestMatcher("/events/{eventId}")).permitAll()

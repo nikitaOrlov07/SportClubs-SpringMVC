@@ -35,9 +35,13 @@ private ClubService clubService; private UserService userService; private Commen
     }
     //Read
     @GetMapping("/clubs")
-    public String listClubs(Model model) {
+    public String listClubs(Model model,
+                            @RequestParam(value="pageNo", defaultValue="0",required=false) int pageNo,
+                            @RequestParam(value="pageSize", defaultValue="6",required=false) int pageSize)
+
+    {
         UserEntity user = new UserEntity();
-        List<ClubDto> clubs = clubService.findAllClub();// метод из service
+        ClubsPagination clubs = clubService.findAllClub(pageNo,pageSize);// метод из service
         String username = SecurityUtil.getSessionUser();
         if(username !=null)
         {

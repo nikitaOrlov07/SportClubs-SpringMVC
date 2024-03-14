@@ -1,12 +1,13 @@
 package com.example.web.service;
 
 import com.example.web.dto.ClubDto;
+import com.example.web.dto.ClubsPagination;
 import com.example.web.models.Club;
 
 import java.util.List;
 
 public interface ClubService {
-    List<ClubDto> findAllClub();
+    ClubsPagination findAllClub(int pageNo, int pageSize);
     Club saveClub(ClubDto clubDto);
 
     ClubDto findClubById(long clubId);
@@ -15,5 +16,6 @@ public interface ClubService {
 
     void delete(Long clubId);
     List<ClubDto> searchClubs(String query);
+
 }
 

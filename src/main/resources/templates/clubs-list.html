@@ -51,7 +51,7 @@
                         <input name="query" class ="form-control mr-sm-2 mb-5" type="search" placeholder="Search running clubs" aria-label="Search">
                     </form>
                 </div>
-                <div  th:each="club : ${clubs}" class = "col-lg-6 mи-2">
+                <div  th:each="club : ${clubs.data}" class = "col-lg-6 mи-2">
                     <div class="position-relative mb-3">
                         <img class="img-fluid rounded-3 mb-3" th:src="${club.photoUrl}" alt="..." />
                         <div><a th:text="${club.title}" class="h3 fw-bolder text-decoration-none link-dark stretched-link"
@@ -65,6 +65,22 @@
                 </div>
                 </div>
             </div>
+        <!-- Pagination -->
+        <nav aria-label="Pagination">
+            <hr class="my-0" />
+            <ul class="pagination justify-content-center my-4">
+                <li class="page-item" th:class="${clubs.pageNo == 0} ? 'disabled' : ''">
+                    <a class="page-link" th:href="@{/clubs(pageNo=${clubs.pageNo - 1}, pageSize=${clubs.pageSize})}" tabindex="-1" aria-disabled="true">Newer</a>
+                </li>
+                <li th:each="pageNumber : ${#numbers.sequence(0, clubs.totalPages - 1)}" class="page-item" th:class="${pageNumber == clubs.pageNo} ? 'active' : ''">
+                    <a class="page-link" th:href="@{/clubs(pageNo=${pageNumber}, pageSize=${clubs.pageSize})}" th:text="${pageNumber + 1}"></a>
+                </li>
+                <li class="page-item" th:class="${clubs.pageNo == clubs.totalPages - 1} ? 'disabled' : ''">
+                    <a class="page-link" th:href="@{/clubs(pageNo=${clubs.pageNo + 1}, pageSize=${clubs.pageSize})}">Older</a>
+                </li>
+            </ul>
+        </nav>
+
         </div>
     </section>
 </main>

@@ -2,12 +2,16 @@ package com.example.web.service.impl;
 
 
 import com.example.web.dto.ClubDto;
+import com.example.web.dto.ClubsPagination;
 import com.example.web.mapper.ClubMapper;
 import com.example.web.models.Club;
 import com.example.web.models.security.UserEntity;
 import com.example.web.repository.ClubRepository;
 import com.example.web.repository.security.UserRepository;
 import com.example.web.service.ClubService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.example.web.security.SecurityUtil;
 
@@ -24,9 +28,27 @@ public class ClubServiceimpl implements ClubService {
     }
 
     @Override
-    public List<ClubDto> findAllClub() {
-        List<Club> clubs = clubRepository.findAll();
-        return clubs.stream().map((club)-> ClubMapper.mapToClubDto(club)).collect(Collectors.toList());
+    public ClubsPagination findAllClub(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo,pageSize); // define information about pagination
+        // in pageable value
+        Page<Club> clubs = clubRepository.findAll(pageable); // контролировать количество данных,
+        // которые мы хотим извлечь из базы данных за один раз.
+        List<Club> listofClubs  =clubs.getContent(); // get all content with in  page
+        // (получам содержимое страницы)
+        List<ClubDto> data =listofClubs.stream().map((club)-> ClubMapper.mapToClubDto(club)).collect(Collectors.toList());
+
+        ClubsPagination clubPagination = new ClubsPagination();
+        clubPagination.setData(data);
+        //get information from Pageable object (we just create Pageable object , but it gives all information)
+        clubPagination.setPageNo(clubs.getNumber());
+        clubPagination.setPageSize(clubs.getSize());
+        clubPagination.setTotalElements(clubs.getTotalElements());
+        clubPagination.setTotalPages(clubs.getTotalPages());
+        clubPagination.setLast(clubs.isLast());
+
+        // we returned List of All ClubDto`s , but now we have this list in ClubPagination object
+        return clubPagination;
+
     }
 
     @Override
