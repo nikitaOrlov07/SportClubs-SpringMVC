@@ -32,6 +32,10 @@ public class SecurityConfig {
                      .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
                      .requestMatchers(new AntPathRequestMatcher("/register/**")).permitAll()
                      .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
+                      // Only administrator can get access to these web-pages
+                     .requestMatchers(new AntPathRequestMatcher("/users-list")).hasAuthority("ADMIN") // hasAutority - checks users role
+                     .requestMatchers(new AntPathRequestMatcher("/users/{userId}/delete")).hasAuthority("ADMIN")
+
                      .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll()
                      .anyRequest().authenticated()) //other URLs are only allowed authenticated users.
              // Это указывает, что запросы к определенным URL-адресам должны быть разрешены для всех пользователей, включая анонимных.

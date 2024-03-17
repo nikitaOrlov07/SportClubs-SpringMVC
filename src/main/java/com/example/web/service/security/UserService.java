@@ -13,4 +13,8 @@ public interface UserService {
 
     UserEntity findByUsername(String username);
     List<Club> findClubsByUser(String  username);
+    List<UserEntity> findAllUsers();
+
+    UserEntity findById(Long userId);
+    void delete(Long userId);
 }

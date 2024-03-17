@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <head>
+        <title>Club List</title>
+        <style>
+            .btn {
+                display: inline-block;
+                font-weight: 400;
+                color: #212529;
+                text-align: center;
+                vertical-align: middle;
+                cursor: pointer;
+                background-color: #818b9a;
+                border: 1px solid transparent;
+                padding: .375rem .75rem;
+                font-size: 1rem;
+                line-height: 1.5;
+                border-radius: .25rem;
+                transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+                margin-top: 20px; /* Добавлен отступ сверху */
+            }
+            .btn:hover {
+                color: #ffffff;
+                background-color: #9a9a9a;
+                border-color: #bbb4b4;
+            }
+             .user-card {
+                 border: 1px solid #000; /* Черная граница */
+                 padding: 10px; /* Отступ внутри границы */
+                 margin-bottom: 10px; /* Отступ снизу для отделения карточек друг от друга */
+             }
+
+
+        </style>
+    </head>
+
+    <!-- Page Content-->
+    <section layout:fragment="body" class="py-5">
+        <div class="container px-5 my-5">
+
+            <div class="text-center mb-5">
+                <h1 class="fw-bolder">List off all users</h1>
+            </div>
+            <div class="row gx-5">
+                <div>
+                    <form th:action="@{/clubs/search}" class="form-inline my-2 my-lg-0 mb-3">
+                        <input name="query" class="form-control mr-sm-2 mb-5" type="search" placeholder="Search running clubs" aria-label="Search">
+                    </form>
+                </div>
+                <div th:each="user : ${users}" class="col-lg-6 mi-2 user-card">
+                    <div class="position-relative mb-3">
+                        <div>
+                            <p th:text="${user.username}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"></p>
+                        </div>
+                        <div th:text="'id: ' + ${user.id}" class="user-id" style="font-weight: bold; color: #001934;"></div>
+                        <div th:text="'Email: ' + ${user.email}" class="user-id" style="font-weight: bold; color: #001934;"></div>
+                        <div th:text="'City: ' + ${user.town}" class="user-id" style="font-weight: bold; color: #001934;"></div>
+                        <span>Clubs: <span>
+                        <span th:each="club : ${userClubs.get(user.username)}" class="user-club">
+                            <span th:text="${club.title}" class=" fw-bolder text-decoration-none" style="margin-right: 1px;" href="#!"></span>
+                        </span>
+                        </div>
+                    <a th:href ="@{/users/{userId}/delete (userId=${user.id})}" class="btn btn-primary">Delete User</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>
