@@ -46,7 +46,7 @@ public class EventController {
        return "events-create";
     }
     @PostMapping("/events/{clubId}")
-    public String  createEvent(@PathVariable("clubId") Long clubId , @ModelAttribute("event")EventDto eventDto ,BindingResult result,Model model)
+    public String  createEvent(@PathVariable("clubId") Long clubId , @ModelAttribute("event") EventDto eventDto ,BindingResult result,Model model)
     {
         if(result.hasErrors())//hasErrors проверяет есть ли ошибки к обьекте BindingResources
         {

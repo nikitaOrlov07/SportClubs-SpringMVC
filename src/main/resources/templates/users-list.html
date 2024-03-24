@@ -59,13 +59,15 @@
                         <div th:text="'id: ' + ${user.id}" class="user-id" style="font-weight: bold; color: #001934;"></div>
                         <div th:text="'Email: ' + ${user.email}" class="user-id" style="font-weight: bold; color: #001934;"></div>
                         <div th:text="'City: ' + ${user.town}" class="user-id" style="font-weight: bold; color: #001934;"></div>
-                        <span>Clubs: <span>
+                        <span>Clubs: </span>
                         <span th:each="club : ${userClubs.get(user.username)}" class="user-club">
                             <span th:text="${club.title}" class=" fw-bolder text-decoration-none" style="margin-right: 1px;" href="#!"></span>
                         </span>
                         </div>
+                    <div th:if="${user.id != 2}">
                     <a th:href ="@{/users/{userId}/delete (userId=${user.id})}" class="btn btn-primary">Delete User</a>
-                </div>
+                    </div>
+                    </div>
             </div>
         </div>
     </section>

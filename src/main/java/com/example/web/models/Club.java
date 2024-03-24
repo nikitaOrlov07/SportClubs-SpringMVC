@@ -26,7 +26,9 @@ public class Club {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "Please enter a title")
     private String title;
+    @NotEmpty(message = "Please enter a photoUrl")
     private String photoUrl;
     private String content;
     @CreationTimestamp

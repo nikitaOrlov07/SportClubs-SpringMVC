@@ -17,9 +17,12 @@ import java.util.List;
 @Builder
 public class ClubDto {
     private Long id;
+    @NotEmpty(message = "You must enter title")
     private String title;
+    @NotEmpty(message = "You must enter photoUrl")
     private String photoUrl;
     private String content;
+    @NotEmpty(message = "You must enter city")
     private String city;
     private UserEntity createdBy;//for security
     private LocalDateTime createdOn;

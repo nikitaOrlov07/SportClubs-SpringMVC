@@ -87,8 +87,6 @@ public class AuthController { // for Security
         return "portfolioPage";
     }
     // users-list (only for admin)
-
-    // delete user (only for admin)
     @GetMapping("/users-list")
     public String usersList(Model model) {
         List<UserEntity> users = userService.findAllUsers();
@@ -99,6 +97,13 @@ public class AuthController { // for Security
         model.addAttribute("users", users);
         model.addAttribute("userClubs", userClubs);
         return "users-list";
+    }
+    // delete user (only for admin)
+    @GetMapping("/users/{userId}/delete")
+    public  String deleteClub(@PathVariable("userId") Long userId)
+    {
+        userService.delete(userId);
+        return "redirect:/users-list";
     }
 
 
