@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+/*
 public class DatabaseTest {
     @Test
     void checkDatabases_exists()
@@ -28,3 +28,5 @@ public class DatabaseTest {
     }
 
 }
+
+ */

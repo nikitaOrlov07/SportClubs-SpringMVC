@@ -1,0 +1,48 @@
+version: '3.8'
+
+#to create volumes and networks
+volumes:
+  postgres:
+
+services:
+  #for database
+  postgres-server:
+    container_name: postgres-sql
+    image: postgres
+    #list of environments
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=07022005
+      - POSTGRES_DB=lessons
+    #we can expose multiple ports for container
+    ports:
+      - "5433:5432" # right port - is docker container port, left port - computer port
+    # use named volume
+    volumes:
+      - postgres:/var/lib/postgres/data
+    # create a new network
+    networks:
+      - spring-boot-network
+    #restart
+    restart: always
+
+  #for application
+  spring-boot-app:
+    build: . # if we have already built this image, if we don't have the image --> build: .
+    container_name: sport-clubs
+    ports:
+      - "8081:8080" # left part - computer port, right part - port in container side
+    networks:
+      - spring-boot-network
+    environment:
+       SPRING_DATASOURCE_URL: 'jdbc:postgresql://postgres-server:5432/lessons'
+       JAVA_OPTS: 'Xmx512m' # maximum amount of memory
+       postgres-server-username: 'postgres'
+       postgres-server-password: '07022005'
+
+    depends_on:
+      - postgres-server
+
+networks:
+  spring-boot-network:
+    driver: bridge
