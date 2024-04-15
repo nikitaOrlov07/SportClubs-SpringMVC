@@ -82,14 +82,29 @@ public class ClubServiceimpl implements ClubService {
     }
 
     @Override
-    public List<ClubDto> searchClubs(String query) {
-     List<Club> clubs =clubRepository.searchClub(query);
+    public ClubsPagination searchClubs(String query, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo,pageSize); // define information about pagination
 
-     return clubs.stream().map(club -> ClubMapper.mapToClubDto(club)).collect(Collectors.toList());
+        ClubsPagination clubPagination = new ClubsPagination();
+        Page<Club> clubs= clubRepository.searchClub(query,pageable);
+
+        List<Club> clubsList = clubs.getContent();
+
+        clubPagination.setData(clubsList.stream().map(club -> ClubMapper.mapToClubDto(club)).collect(Collectors.toList()));
+
         //clubs.stream(): Преобразует список clubs в поток элементов.
         //map(club -> mapToClubDto(club)): Применяет функцию mapToClubDto к каждому элементу потока (в данном случае, к каждому объекту типа Club)
         //для преобразования его в объект типа ClubDto.
         //collect(Collectors.toList()): Собирает элементы потока в список.
+
+        clubPagination.setPageNo(clubs.getNumber());
+        clubPagination.setPageSize(clubs.getSize());
+        clubPagination.setTotalElements(clubs.getTotalElements());
+        clubPagination.setTotalPages(clubs.getTotalPages());
+        clubPagination.setLast(clubs.isLast());
+
+     return clubPagination;
+
     }
 
 

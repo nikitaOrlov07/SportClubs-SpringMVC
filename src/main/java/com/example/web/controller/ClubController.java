@@ -132,9 +132,21 @@ private ClubService clubService; private UserService userService; private Commen
     }
     //Search
     @GetMapping("/clubs/search")
-    public String searchClub(@RequestParam(value = "query") String query , Model model)
+    public String searchClub(@RequestParam(value = "query") String query
+                             , Model model
+                             , @RequestParam(value="pageNo", defaultValue="0",required=false) int pageNo
+                             , @RequestParam(value="pageSize", defaultValue="6",required=false) int pageSize)
     {
-      List<ClubDto> clubs= clubService.searchClubs(query);
+        UserEntity user = new UserEntity();
+        ClubsPagination clubs= clubService.searchClubs(query,pageNo,pageSize);
+        String username = SecurityUtil.getSessionUser();
+        if(username !=null)
+        {
+            user= userService.findByUsername(username);
+            model.addAttribute("user",user);
+        }
+        model.addAttribute("user",user);// if user entity will be null (пользователь не авторизован или не существует в системе.)
+
       model.addAttribute("clubs",clubs);
       return "clubs-list";
     }
