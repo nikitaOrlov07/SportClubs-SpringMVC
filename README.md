@@ -1,5 +1,5 @@
 Sports Club Application
-Welcome to our Sports Club Application, a comprehensive platform built using the robust Spring framework. This application is designed to cater to both regular users and administrators, offering a wide range of functionalities.
+Welcome to my Sports Club Application, a comprehensive platform built using the robust Spring framework. This application is designed to cater to both regular users and administrators, offering a wide range of functionalities.
 
 User Features
 As a regular user, you have the ability to:
