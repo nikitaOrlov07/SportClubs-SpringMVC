@@ -1,4 +1,6 @@
 Sports Club Application (Spring Boot Aplication)
+
+
 Welcome to my Sports Club Application, a comprehensive platform built using the robust Spring framework. This application is designed to cater to both regular users and administrators, offering a wide range of functionalities.
 
 User Features
