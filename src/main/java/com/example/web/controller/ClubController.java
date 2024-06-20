@@ -120,8 +120,7 @@ private ClubService clubService; private UserService userService; private Commen
        }
        clubDto.setId(clubId);
        clubService.updateClub(clubDto);
-       return "redirect:/clubs"; // когда этот метод выполнется
-                                 // --> нас вернет обратно на главную страницу
+       return "redirect:/clubs";
     }
     //Delete
     @GetMapping("/clubs/{clubId}/delete")
