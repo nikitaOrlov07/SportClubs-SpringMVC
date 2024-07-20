@@ -26,7 +26,7 @@ For ease of use, the application includes:
 
 - **Registration Page**: New users can sign up by accessing the Registration Page.
 - **Login Page**: Returning users can access their accounts through the Login Page.
-- 
+
 ## Screenshots
 
 ### Main Page
